@@ -1,0 +1,14 @@
+-r base.txt
+
+# Debugging
+django-debug-toolbar==4.3.0
+
+# Tooling
+black==24.4.2
+isort==5.13.2
+ruff==0.4.7
+
+# Testing
+pytest==8.2.2
+pytest-django==4.8.0
+factory-boy==3.3.0

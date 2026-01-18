@@ -1,0 +1,1 @@
+export type PlanType = "starter" | "pro" | "enterprise";

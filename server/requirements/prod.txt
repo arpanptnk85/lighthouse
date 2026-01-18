@@ -1,0 +1,8 @@
+-r base.txt
+
+# WSGI / ASGI
+gunicorn==22.0.0
+uvicorn==0.30.1
+
+# Observability
+sentry-sdk==2.5.1

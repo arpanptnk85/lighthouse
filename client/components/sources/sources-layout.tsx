@@ -13,28 +13,35 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { PlaygroundHistory } from "@/components/playground/history";
 import React from "react";
+import CustomAPIPage from "./custom-api";
 
 export type BreadcrumbItemData = {
   label: string;
   href?: string;
 };
 
-type PlaygroundComponentType = "history" | "ask" | "settings";
+type SourcesComponentType = "shopify" | "woocommerce" | "custom" | "webhook";
 
-function getPlaygroundComponent(type: PlaygroundComponentType) {
+function getSourcesComponent(type: SourcesComponentType) {
   switch (type) {
-    case "history":
-      return <PlaygroundHistory />;
-    case "ask":
+    case "shopify":
+      return (
+        <div className="text-muted-foreground">
+          Starred component coming soon...
+        </div>
+      );
+    case "woocommerce":
       // Placeholder for future starred component
       return (
         <div className="text-muted-foreground">
           Starred component coming soon...
         </div>
       );
-    case "settings":
+    case "custom":
+      // Placeholder for future settings component
+      return <CustomAPIPage />
+    case "webhook":
       // Placeholder for future settings component
       return (
         <div className="text-muted-foreground">
@@ -46,15 +53,15 @@ function getPlaygroundComponent(type: PlaygroundComponentType) {
   }
 }
 
-type PlaygroundLayoutProps = {
+type SourcesLayoutProps = {
   breadcrumbs: BreadcrumbItemData[];
-  componentType: PlaygroundComponentType;
+  componentType: SourcesComponentType;
 };
 
-export function PlaygroundLayout({
+export function SourcesLayout({
   breadcrumbs,
   componentType,
-}: PlaygroundLayoutProps) {
+}: SourcesLayoutProps) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -95,7 +102,7 @@ export function PlaygroundLayout({
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="min-h-[100vh] flex-1 rounded-xl p-6 md:min-h-min bg-gradient-to-b from-secondary/30 via-background to-background border border-primary/10 shadow-xl shadow-primary/5">
-            {getPlaygroundComponent(componentType)}
+            {getSourcesComponent(componentType)}
           </div>
         </div>
       </SidebarInset>

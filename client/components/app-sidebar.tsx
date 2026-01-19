@@ -2,13 +2,12 @@
 
 import type * as React from "react";
 import {
-  AlertTriangleIcon,
   BookOpen,
-  Bot,
-  Command,
   Compass,
+  Database,
   Frame,
   Gauge,
+  Globe,
   History,
   LibraryBig,
   LifeBuoy,
@@ -24,6 +23,7 @@ import {
   ShieldCheck,
   ShoppingBag,
   ShoppingBasket,
+  Sliders,
   Sparkles,
   SquareTerminal,
   Star,
@@ -48,6 +48,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuthContext } from "@/context/auth-context";
 import TrialBanner from "@/components/billing/trial-banner";
+import { cn } from "@/lib/utils";
 
 const data = {
   user: {
@@ -63,22 +64,27 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Chat",
-          url: "/playground/chat",
+          title: "Ask",
+          url: "/playground/ask",
           subIcon: Sparkles,
         },
         {
-          title: "History",
+          title: "Saved Insights",
+          url: "/playground/insights",
+          subIcon: Star,
+        },
+        {
+          title: "Runs & History",
           url: "/playground/history",
           subIcon: History,
         },
         {
-          title: "Starred",
-          url: "/playground/starred",
-          subIcon: Star,
+          title: "Datasets",
+          url: "/playground/datasets",
+          subIcon: Database,
         },
         {
-          title: "Settings",
+          title: "Playground Settings",
           url: "/playground/settings",
           subIcon: Settings,
         },
@@ -146,21 +152,21 @@ const data = {
         {
           title: "General",
           url: "#",
-          subIcon: Settings,
+          subIcon: Sliders,
         },
         {
           title: "Team",
-          url: "#",
+          url: "/settings/team",
           subIcon: UsersRound,
         },
         {
           title: "Billing",
-          url: "/settings/billing/",
+          url: "/settings/billing",
           subIcon: ReceiptText,
         },
         {
           title: "Limits",
-          url: "/settings/limits/",
+          url: "/settings/limits",
           subIcon: Gauge,
         },
       ],
@@ -231,36 +237,49 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="/dashboard">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Sparkles className="size-4" />
+              <a
+                href="/dashboard"
+                className="flex items-center group select-none"
+              >
+                {/* The Beacon Container - Matching Landing Page Scale */}
+                <div className="relative">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-[0_0_15px_rgba(var(--primary),0.3)] transition-all duration-300 group-hover:shadow-primary/50 group-hover:-rotate-6">
+                    <Sparkles className="h-5 w-5 text-primary-foreground transition-transform duration-500 group-hover:rotate-12" />
+                  </div>
+
+                  {/* The Unified Live Indicator */}
+                  <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+                    {plan !== "starter" && (
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-40"></span>
+                    )}
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary border-2 border-sidebar"></span>
+                  </span>
                 </div>
+
                 <div className="flex flex-1 flex-col items-start justify-center min-w-0 ml-3">
-                  <span className="truncate w-full font-bold text-sm tracking-tight text-foreground leading-none mb-1.5">
-                    LightHouse Inc
+                  {/* Primary Brand Name */}
+                  <span className="truncate w-full font-black text-sm tracking-tighter text-foreground leading-none">
+                    LIGHTHOUSE
                   </span>
 
-                  {/* Plan Indicator - Flush Left Alignment */}
-                  <div
-                    className={`group flex items-center gap-2 py-0.5 px-2 rounded-md transition-all duration-200 ${currentPlan.glow}`}
-                  >
-                    {/* Status Dot aligned with start of text */}
-                    <div className="relative flex h-2 w-2 items-center justify-center">
-                      {plan !== "starter" && (
-                        <span
-                          className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-20 ${currentPlan.dotColor}`}
-                        ></span>
-                      )}
-                      <span
-                        className={`relative inline-flex rounded-full h-1.5 w-1.5 ${currentPlan.dotColor}`}
-                      ></span>
-                    </div>
-
+                  {/* Dynamic Plan Indicator Area */}
+                  <div className="mt-1.5 flex flex-col items-start gap-1">
+                    {/* Plan Badge - Your Existing Logic */}
                     <div
-                      className={`flex items-center gap-1 text-[10px] uppercase tracking-[0.08em] ${currentPlan.textColor}`}
+                      className={cn(
+                        "flex items-center gap-1.5 py-0.5 px-1.5 rounded-md transition-all duration-200 mt-0.5",
+                        currentPlan.glow,
+                      )}
                     >
-                      {currentPlan.icon}
-                      <span>{currentPlan.label}</span>
+                      <div
+                        className={cn(
+                          "text-[9px] font-bold uppercase tracking-wider flex items-center gap-1",
+                          currentPlan.textColor,
+                        )}
+                      >
+                        {currentPlan.icon}
+                        <span>{currentPlan.label}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -283,3 +302,4 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     </Sidebar>
   );
 }
+

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -45,7 +45,10 @@ export default function RootLayout({
           enableSystem={true} // This allows the app to react to OS changes
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
           {/* <Analytics /> */}
         </ThemeProvider>
       </body>

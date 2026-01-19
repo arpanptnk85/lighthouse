@@ -16,10 +16,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { CreditCard, Users, Settings, Shield } from "lucide-react";
+import { Users } from "lucide-react";
 
-// You can import your actual pages here
-import UpgradeRequired from "../billing/upgrade-required";
+import LimitsPage from "./limits";
+import BillingPage from "./billing";
 
 export type BreadcrumbItemData = {
   label: string;
@@ -27,21 +27,12 @@ export type BreadcrumbItemData = {
 };
 
 // Define settings-specific types
-type SettingsComponentType = "general" | "team" | "billing" | "security";
+type SettingsComponentType = "general" | "team" | "billing" | "limits";
 
 function getSettingsComponent(type: SettingsComponentType) {
   switch (type) {
     case "billing":
-      return (
-        <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-             {/* This will be replaced by your content in page.tsx */}
-             <div className="flex items-center gap-2 mb-6">
-                <CreditCard className="h-5 w-5 text-primary" />
-                <h2 className="text-xl font-bold">Subscription & Billing</h2>
-             </div>
-             <UpgradeRequired /> 
-        </div>
-      );
+      return <BillingPage />;
     case "team":
       return (
         <div className="flex flex-col items-center justify-center h-64 text-muted-foreground border-2 border-dashed rounded-xl">
@@ -49,21 +40,25 @@ function getSettingsComponent(type: SettingsComponentType) {
           <p>Team management coming soon...</p>
         </div>
       );
+    case "limits":
+      return <LimitsPage />;
     default:
-      return <div className="text-muted-foreground">Settings module under construction</div>;
+      return (
+        <div className="text-muted-foreground">
+          Settings module under construction
+        </div>
+      );
   }
 }
 
 type SettingsLayoutProps = {
   breadcrumbs: BreadcrumbItemData[];
   componentType: SettingsComponentType;
-  children?: React.ReactNode; // Optional: if you prefer to use children instead of getSettingsComponent
 };
 
 export function SettingsLayout({
   breadcrumbs,
   componentType,
-  children
 }: SettingsLayoutProps) {
   return (
     <SidebarProvider>
@@ -86,9 +81,14 @@ export function SettingsLayout({
                         className={index === 0 ? "hidden md:block" : ""}
                       >
                         {isLast ? (
-                          <BreadcrumbPage className="font-bold text-foreground">{item.label}</BreadcrumbPage>
+                          <BreadcrumbPage className="font-bold text-foreground">
+                            {item.label}
+                          </BreadcrumbPage>
                         ) : (
-                          <BreadcrumbLink href={item.href} className="hover:text-primary transition-colors">
+                          <BreadcrumbLink
+                            href={item.href}
+                            className="hover:text-primary transition-colors"
+                          >
                             {item.label}
                           </BreadcrumbLink>
                         )}
@@ -105,11 +105,8 @@ export function SettingsLayout({
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {/* The 'Modern' Container: 
-              Using the same gradient and shadow as Playground for brand cohesion 
-          */}
           <div className="min-h-[100vh] flex-1 rounded-2xl p-6 md:min-h-min bg-gradient-to-br from-secondary/40 via-background to-background border border-primary/10 shadow-2xl shadow-primary/5">
-            {children || getSettingsComponent(componentType)}
+            {getSettingsComponent(componentType)}
           </div>
         </div>
       </SidebarInset>

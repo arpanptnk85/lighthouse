@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       bootstrap: Boolean(payload.bootstrap),
     }));
   }
-
+  
   function logout() {
     clearTokens();
     setState(EMPTY_AUTH_STATE);
@@ -192,12 +192,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setState((prev) => ({
       ...prev,
+      userId: data.user.id,
+      email: data.user.email,
+      role: data.role,
+
+      organizationId: data.organization.id,
       organizationName: data.organization.name,
+
       plan: data.organization.plan,
       trialActive: data.organization.trial_active,
       trialEndsAt: data.organization.trial_ends_at,
-      hydrated: true,
       subscriptionActive: data.organization.subscription_active,
+
+      hydrated: true,
     }));
   }
 
@@ -210,7 +217,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         ...state,
-        isAuthenticated: Boolean(state.userId),
+        isAuthenticated: Boolean(getAccessToken()),
         logout,
         refreshFromStorage: loadFromToken,
         ensureValidAccessToken,

@@ -5,9 +5,9 @@ export default function PlaygroundHistoryPage() {
     <PlaygroundLayout
       breadcrumbs={[
         { label: "Playground", href: "/playground" },
-        { label: "Starred" },
+        { label: "Ask" },
       ]}
-      componentType="starred"
+      componentType="ask"
     />
   );
 }

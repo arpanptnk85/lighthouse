@@ -1,18 +1,37 @@
-"use client"
+"use client";
 
-import { Clock, Star, Trash2, Play, MoreHorizontal } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import {
+  Clock,
+  Star,
+  Trash2,
+  Play,
+  MoreHorizontal,
+  History,
+  HistoryIcon,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HistoryItem {
-  id: string
-  title: string
-  description: string
-  timestamp: string
-  status: "completed" | "running" | "failed"
-  starred: boolean
+  id: string;
+  title: string;
+  description: string;
+  timestamp: string;
+  status: "completed" | "running" | "failed";
+  starred: boolean;
 }
 
 const historyItems: HistoryItem[] = [
@@ -56,28 +75,53 @@ const historyItems: HistoryItem[] = [
     status: "completed",
     starred: false,
   },
-]
+];
 
 function getStatusBadge(status: HistoryItem["status"]) {
   switch (status) {
     case "completed":
-      return <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">Completed</Badge>
+      return (
+        <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+          Completed
+        </Badge>
+      );
     case "running":
-      return <Badge className="bg-primary/20 text-primary border-primary/30">Running</Badge>
+      return (
+        <Badge className="bg-primary/20 text-primary border-primary/30">
+          Running
+        </Badge>
+      );
     case "failed":
-      return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Failed</Badge>
+      return (
+        <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
+          Failed
+        </Badge>
+      );
   }
 }
 
 export function PlaygroundHistory() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="space-y-10">
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">History</h2>
-          <p className="text-muted-foreground">View and manage your playground sessions</p>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-primary/10 p-2 text-primary">
+              <HistoryIcon className="h-5 w-5" />
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              History
+            </h1>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            Manage and view your playground history.
+          </p>
         </div>
-        <Button variant="outline" className="border-primary/20 hover:bg-primary/10 bg-transparent">
+
+        <Button
+          variant="outline"
+          className="border-primary/20 hover:bg-primary/10 bg-transparent"
+        >
           <Clock className="mr-2 size-4" />
           Clear History
         </Button>
@@ -92,19 +136,30 @@ export function PlaygroundHistory() {
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  {item.starred && <Star className="size-4 fill-yellow-400 text-yellow-400" />}
+                  {item.starred && (
+                    <Star className="size-4 fill-yellow-400 text-yellow-400" />
+                  )}
                   <div>
                     <CardTitle className="text-base">{item.title}</CardTitle>
-                    <CardDescription className="mt-1">{item.description}</CardDescription>
+                    <CardDescription className="mt-1">
+                      {item.description}
+                    </CardDescription>
                   </div>
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="size-8 hover:bg-primary/10">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 hover:bg-primary/10"
+                    >
                       <MoreHorizontal className="size-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="border-primary/20 bg-card/95 backdrop-blur">
+                  <DropdownMenuContent
+                    align="end"
+                    className="border-primary/20 bg-card/95 backdrop-blur"
+                  >
                     <DropdownMenuItem className="hover:bg-primary/10">
                       <Play className="mr-2 size-4" />
                       Run Again
@@ -123,7 +178,9 @@ export function PlaygroundHistory() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">{item.timestamp}</span>
+                <span className="text-sm text-muted-foreground">
+                  {item.timestamp}
+                </span>
                 {getStatusBadge(item.status)}
               </div>
             </CardContent>
@@ -131,5 +188,5 @@ export function PlaygroundHistory() {
         ))}
       </div>
     </div>
-  )
+  );
 }

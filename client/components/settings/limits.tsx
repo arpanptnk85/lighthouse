@@ -21,9 +21,9 @@ export default function LimitsPage() {
           <div className="rounded-lg bg-primary/10 p-2 text-primary">
             <Gauge className="h-5 w-5" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h2 className="text-lg font-black tracking-tight text-foreground uppercase italic">
             Usage & Limits
-          </h1>
+          </h2>
         </div>
         <p className="text-sm text-muted-foreground max-w-2xl">
           Monitor your organization's resource consumption. Limits are based on

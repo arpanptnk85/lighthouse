@@ -20,9 +20,9 @@ export default function BillingPage() {
           <div className="rounded-lg bg-primary/10 p-2 text-primary">
             <CreditCard className="h-5 w-5" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h2 className="text-lg font-black tracking-tight text-foreground uppercase italic">
             Billing & Plans
-          </h1>
+          </h2>
         </div>
         <p className="text-sm text-muted-foreground max-w-2xl">
           Manage your subscription, view active plans, and update payment

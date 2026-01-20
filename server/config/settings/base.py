@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'apps.integrations.apps.IntegrationsConfig',
     'apps.dashboards.apps.DashboardsConfig',
     'apps.sources.apps.SourcesConfig',
+    'apps.datasets.apps.DatasetsConfig',
+    'apps.playground.apps.PlaygroundConfig',
+    'apps.insights.apps.InsightsConfig',
 ]
 
 MIDDLEWARE = [

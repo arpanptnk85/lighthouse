@@ -44,7 +44,7 @@ type CustomAPISource = {
   id: number;
   name: string;
   base_url: string;
-  auth_type: "none" | "api_key";
+  auth_type: AuthType;
   schema: object;
   sync_interval_minutes?: number | null;
 };
@@ -207,10 +207,24 @@ export function AddEditCustomAPIModal({
                 <Terminal className="h-5 w-5" />
               </div>
               <div>
-                <DialogTitle className="text-2xl font-black tracking-tight leading-none">
-                  {isEdit ? "Configure Source" : "Register Custom API"}
+                <DialogTitle className="text-xl font-black uppercase tracking-tight italic leading-none">
+                  {isEdit ? (
+                    <>
+                      Configure{" "}
+                      <span className="text-primary/80 text-lg ml-1">
+                        Source
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Register{" "}
+                      <span className="text-primary/80 text-lg ml-1">
+                        Custom API
+                      </span>
+                    </>
+                  )}
                 </DialogTitle>
-                <DialogDescription className="text-xs mt-1.5 text-muted-foreground">
+                <DialogDescription className="text-[11px] font-medium text-muted-foreground/70 uppercase tracking-wider">
                   Map your external endpoints to the Lighthouse Intelligence
                   engine.
                 </DialogDescription>
@@ -219,7 +233,7 @@ export function AddEditCustomAPIModal({
           </DialogHeader>
 
           {/* 2. Main Content - Optimized Split Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 overflow-hidden flex-1">
+          <div className="grid grid-cols-1 lg:grid-cols-12 overflow-hidden flex-1 animate-in fade-in zoom-in-95 duration-300">
             {/* LEFT COLUMN: Configuration (5/12) */}
             <div className="lg:col-span-5 p-6 space-y-6 overflow-y-auto border-r border-border/50 bg-muted/5">
               {/* Connection Details Group */}

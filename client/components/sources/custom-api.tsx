@@ -16,6 +16,7 @@ export default function CustomAPIPage() {
 
   const [sources, setSources] = useState<CustomAPISource[]>([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingSource, setEditingSource] = useState<
@@ -49,6 +50,7 @@ export default function CustomAPIPage() {
   }, [isAuthenticated]);
 
   async function syncSource(id: number) {
+    setSyncing(true);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/sources/custom/${id}/sync/`,
       {
@@ -61,9 +63,11 @@ export default function CustomAPIPage() {
 
     if (res.ok) {
       toast.success("Sync complete");
+      setSyncing(false);
       loadSources();
     } else {
       toast.error("Sync failed");
+      setSyncing(false);
     }
   }
 
@@ -89,7 +93,9 @@ export default function CustomAPIPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold">Custom API Sources</h2>
+          <h2 className="text-lg font-black tracking-tight text-foreground uppercase italic">
+            Custom API Sources
+          </h2>
           <p className="text-sm text-muted-foreground">
             Connect your own APIs to power Lighthouse insights.
           </p>
@@ -233,7 +239,12 @@ export default function CustomAPIPage() {
                       className="h-8 px-4 font-black text-[11px] shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-95 transition-all"
                       onClick={() => syncSource(source.id)}
                     >
-                      <RefreshCw className="mr-2 h-3.5 w-3.5" />
+                      <RefreshCw
+                        className={cn(
+                          "mr-2 h-3.5 w-3.5",
+                          syncing && "animate-spin",
+                        )}
+                      />
                       Sync
                     </Button>
                   </div>

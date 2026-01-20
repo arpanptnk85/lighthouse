@@ -16,3 +16,12 @@ export type CustomAPISource = {
 };
 
 export type AuthType = "none" | "api_key" | "bearer" | "basic" | "oauth2";
+
+export type IntegrationType = "custom_api" | "shopify" | "woocommerce" | "webhook";
+
+export const INTEGRATION_LABELS: Record<IntegrationType, string> = {
+  custom_api: 'Custom API',
+  shopify: 'Shopify',
+  woocommerce: 'WooCommerce',
+  webhook: 'Webhook',
+} as const;

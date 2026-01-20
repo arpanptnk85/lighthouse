@@ -69,14 +69,9 @@ const data = {
           subIcon: Sparkles,
         },
         {
-          title: "Saved Insights",
+          title: "Insights",
           url: "/playground/insights",
           subIcon: Star,
-        },
-        {
-          title: "Runs & History",
-          url: "/playground/history",
-          subIcon: History,
         },
         {
           title: "Datasets",
@@ -84,9 +79,14 @@ const data = {
           subIcon: Database,
         },
         {
-          title: "Playground Settings",
+          title: "Settings",
           url: "/playground/settings",
           subIcon: Settings,
+        },
+        {
+          title: "Runs & History",
+          url: "/playground/history",
+          subIcon: History,
         },
       ],
     },

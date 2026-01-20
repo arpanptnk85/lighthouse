@@ -9,6 +9,7 @@ from apps.sources.permissions import IsOrgAdmin
 from apps.sources.utils.http import fetch_external_api, ExternalAPIError
 from apps.sources.utils.schema import validate_schema, SchemaValidationError
 from apps.billing.usage import increment_usage
+from apps.datasets.services.materialize import materialize_custom_api_source
 
 
 class CustomAPISourceSyncView(APIView):
@@ -25,13 +26,10 @@ class CustomAPISourceSyncView(APIView):
                 {"detail": "Source not found"},
                 status=status.HTTP_404_NOT_FOUND,
             )
+        
+        version = materialize_custom_api_source(custom, run_type="manual")
 
         try:
-            # payload = fetch_external_api(
-            #     custom.base_url,
-            #     custom.auth_type,
-            #     custom.api_key,
-            # )
             payload = fetch_external_api(
                 url=custom.base_url,
                 auth_type=custom.auth_type,

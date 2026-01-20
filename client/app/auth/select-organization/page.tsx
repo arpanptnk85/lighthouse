@@ -26,7 +26,7 @@ export default function SelectOrganizationPage() {
             <Building2 className="h-6 w-6" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Select Workspace
+            Select Organization
           </h1>
           <p className="mt-2 text-muted-foreground">
             You are a member of multiple organizations. Choose where to dock.

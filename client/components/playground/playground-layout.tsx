@@ -15,25 +15,32 @@ import {
 } from "@/components/ui/sidebar";
 import { PlaygroundHistory } from "@/components/playground/history";
 import React from "react";
+import PlaygroundDatasets from "./datasets/dataset-entry-page";
+import PlaygroundAsk from "./ask/ask-entry-page";
+import PlaygroundInsights from "./insights/insights-entry-page";
 
 export type BreadcrumbItemData = {
   label: string;
   href?: string;
 };
 
-type PlaygroundComponentType = "history" | "ask" | "settings";
+type PlaygroundComponentType =
+  | "history"
+  | "ask"
+  | "settings"
+  | "datasets"
+  | "insights";
 
 function getPlaygroundComponent(type: PlaygroundComponentType) {
   switch (type) {
     case "history":
       return <PlaygroundHistory />;
+    case "datasets":
+      return <PlaygroundDatasets />;
     case "ask":
-      // Placeholder for future starred component
-      return (
-        <div className="text-muted-foreground">
-          Starred component coming soon...
-        </div>
-      );
+      return <PlaygroundAsk />;
+    case "insights":
+      return <PlaygroundInsights />;
     case "settings":
       // Placeholder for future settings component
       return (
@@ -94,7 +101,7 @@ export function PlaygroundLayout({
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="min-h-[100vh] flex-1 rounded-xl p-6 md:min-h-min bg-gradient-to-b from-secondary/30 via-background to-background border border-primary/10 shadow-xl shadow-primary/5">
+          <div className="min-h-[90vh] flex-1 rounded-xl p-6 md:min-h-min bg-gradient-to-b from-secondary/30 via-background to-background border border-primary/10 shadow-xl shadow-primary/5">
             {getPlaygroundComponent(componentType)}
           </div>
         </div>
